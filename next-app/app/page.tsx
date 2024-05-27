@@ -1,30 +1,44 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { Slider } from "@/components/ui/slider";
+import UseTimer from "@/lib/useTimer";
 import { useEffect, useState } from "react";
 
 export default function Home() {
-  const frenchWords = ["le", "la", "les", "des", "du", "un", "une", "ce", "cet", "cette", "ces", "mon", "ma", "mes", "ton", "ta", "tes", "son", "sa", "ses", "notre", "notre", "nos", "votre", "votre", "vos", "leur", "leur", "leurs", "ceci", "cela", "ça", "ce", "celui", "celle", "ceux", "celles", "ici", "là", "là-bas", "dehors", "dedans", "en", "dans", "sur", "sous", "devant", "derrière", "à", "chez", "près", "loin", "avec", "sans", "pour", "par", "dans", "en", "vers", "contre", "dans", "de", "parmi", "entre", "sous", "sur", "dans", "à", "depuis", "pendant", "pour", "à", "tous", "toutes", "tout", "toute", "tous", "toutes", "quelques", "plusieurs", "certains", "certaines", "autre", "autres", "un", "une", "deux", "trois", "quatre", "cinq", "six", "sept", "huit", "neuf", "dix", "onze", "douze", "treize", "quatorze", "quinze", "seize", "dix-sept", "dix-huit", "dix-neuf", "vingt", "vingt-et-un", "trente", "quarante", "cinquante", "soixante", "soixante-dix", "quatre-vingts", "quatre-vingt-dix", "cent", "mille", "million", "milliard", "millions", "milliards", "zéro", "un", "deux", "trois", "quatre", "cinq", "six", "sept", "huit", "neuf", "dix", "onze", "douze", "treize", "quatorze", "quinze", "seize", "dix-sept", "dix-huit", "dix-neuf", "vingt", "vingt-et-un", "trente", "quarante", "cinquante", "soixante", "soixante-dix", "quatre-vingts", "quatre-vingt-dix", "cent", "mille", "million", "milliard", "millions", "milliards", "zéro", "un", "deux", "trois", "quatre", "cinq", "six", "sept", "huit", "neuf", "dix", "onze", "douze", "treize", "quatorze", "quinze", "seize", "dix-sept", "dix-huit", "dix-neuf", "vingt", "vingt-et-un", "trente", "quarante", "cinquante", "soixante", "soixante-dix", "quatre-vingts", "quatre-vingt-dix"]
-  const englishWords = ["the", "be", "to", "of", "and", "a", "in", "that", "have", "I", "it", "for", "not", "on", "with", "he", "as", "you", "do", "at", "this", "but", "his", "by", "from", "they", "we", "say", "her", "she", "or", "an", "will", "my", "one", "all", "would", "there", "their", "what", "so", "up", "out", "if", "about", "who", "get", "which", "go", "me", "when", "make", "can", "like", "time", "no", "just", "him", "know", "take", "people", "into", "year", "your", "good", "some", "could", "them", "see", "other", "than", "then", "now", "look", "only", "come", "its", "over", "think", "also", "back", "after", "use", "two", "how", "our", "work", "first", "well", "way", "even", "new", "want", "because", "any", "these", "give", "day", "most", "us", "is", "are", "was", "were", "has", "have", "had", "do", "does", "did", "be", "am", "are", "is", "was", "were", "been", "being", "can", "could", "will", "would", "shall", "should", "may", "might", "must", "ought", "dare", "need", "used", "to", "used", "to", "had", "better", "have", "better", "be", "had", "rather", "have", "rather", "be", "would", "sooner", "than", "would", "rather", "than", "had", "sooner", "than", "had", "rather", "than", "would", "sooner", "than", "would", "rather", "than", "had", "sooner", "than", "had", "rather", "than", "would", "sooner", "than", "would", "rather", "than", "had", "sooner", "than", "had", "rather", "than", "would", "sooner", "than", "would", "rather", "than", "had", "sooner", "than", "had", "rather", "than", "would", "sooner", "than", "would", "rather", "than", "had", "sooner", "than", "had", "rather", "than", "would", "sooner", "than", "would", "rather", "than", "had", "sooner", "than", "had", "rather", "than", "would", "sooner", "than", "would", "rather", "than", "had", "sooner", "than", "had", "rather", "than", "would", "sooner", "than", "would", "rather", "than", "had", "sooner", "than", "had", "rather", "than", "would", "sooner", "than", "would", "rather", "than", "had", "sooner", "than", "had", "rather", "than", "would", "sooner", "than", "would", "rather", "than", "had", "sooner", "than", "had", "rather", "than", "would", "sooner", "than", "would", "rather", "than", "had", "sooner", "than", "had", "rather", "than", "would", "sooner", "than", "would", "rather", "than", "had", "sooner", "than"]
-
+  const frenchWords = ["bleu","super","autre","bizarre","difficile","drôle","étrange","facile","grave","impossible","jeune","juste","libre","malade","même","pauvre","possible","propre","rouge","sale","simple","tranquille","triste","vide","faux","français","gros","heureux","mauvais","sérieux","vieux","vrai","ancien","beau","blanc","certain","chaud","cher","clair","content","dernier","désolé","différent","droit","entier","fort","froid","gentil","grand","haut","humain","important","joli","léger","long","meilleur","mort","noir","nouveau","pareil","petit","plein","premier","prêt","prochain","quoi","seul","tout","vert","vivant","aide","chef","enfant","garde","gauche","geste","gosse","livre","merci","mort","ombre","part","poche","professeur","tour","fois","madame","paix","voix","affaire","année","arme","armée","attention","balle","boîte","bouche","carte","cause","chambre","chance","chose","classe","confiance","couleur","cour","cuisine","dame","dent","droite","école","église","envie","épaule","époque","équipe","erreur","espèce","face","façon","faim","famille","faute","femme","fenêtre","fête","fille","fleur","force","forme","guerre","gueule","habitude","heure","histoire","idée","image","impression","jambe","joie","journée","langue","lettre","lèvre","ligne","lumière","main","maison","maman","manière","marche","merde","mère","minute","musique","nuit","odeur","oreille","parole"]
+  const englishWords = ["about","above","add","after","again","air","all","almost","along","also","always","America","an","and","animal","another","answer","any","are","around","as","ask","at","away","back","be","because","been","before","began","begin","being","below","between","big","book","both","boy","but","by","call","came","can","car","carry","change","children","city","close","come","could","country","cut","day","did","different","do","does","don","down","each","earth","eat","end","enough","even","every","example","eye","face","family","far","father","feet","few","find","first","follow","food","for","form","found","four","from","get","girl","give","go","good","got","great","group","grow","had","hand","hard","has","have","he","head","hear","help","her","here","high","him","his","home","house","how","idea","if","important","in","Indian","into","is","it","its","it","just","keep","kind","know","land","large","last","later","learn","leave","left","let","letter","life","light","like","line","list","little","live","long","look","made","make","man","many","may","me","mean","men","might","mile","miss","more","most","mother","mountain","move","much","must","my","name","near","need","never","new","next","night","no","not","now","number","of","off","often","oil","old","on","once","one","only","open","or","other","our","out","over","own","page","paper","part","people","picture","place","plant","play","point","put","question","quick","quickly","quite","read","really","right","river","run","said","same","saw","say","school","sea","second","see","seem","sentence","set","she","should","show","side","small","so","some","something","sometimes","song","soon","sound","spell","start","state","still","stop","story","study","such","take","talk","tell","than","that","the","their","them","then","there","these","they","thing","think","this","those","thought","three","through","time","to","together","too","took","tree","try","turn","two","under","until","up","us","use","very","walk","want","was","watch","water","way","we","well","went","were","what","when","where","which","while","white","who","why","will","with","without","word","work","world","would","write","year","you","young"]
   const [stats, setStats] = useState({ accuracy: 0, speed: 0 })
+  const { counter, resetCounter } = UseTimer()
+  const [started, setStarted] = useState(false)
 
   const selectRandomWords = (words: string[], count: number) => {
     // Using reduce
     return Array.from({ length: count }, () => words[Math.floor(Math.random() * words.length)])
   }
 
-  const reset = (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (e.detail == 0) return
+
+  useEffect(() => {
+    calculateStats()
+  }, [counter])
+
+
+  const reset = (e: React.MouseEvent<HTMLButtonElement> | undefined) => {
+    if (e && e.detail == 0) return
     setText(selectRandomWords(frenchWords, 120).join(" "))
     setInput("")
     setStats({ accuracy: 0, speed: 0 })
+    setStarted(true)
+    resetCounter()
   }
 
+
   const calculateStats = () => {
-    const speed = text.substring(0, input.length).split(" ").length
+    if (started === false) return;
 
+    10 / 6
 
+    const speed = Math.round((text.substring(0, input.length).split(" ").length - 1) * (60 / (60 - counter)))
     const goodChar = input.split("").reduce((acc, char, index) => {
       if (char === text[index]) {
         acc++
@@ -32,33 +46,47 @@ export default function Home() {
       return acc
     }, 0)
 
-    const accuracy = Math.round(goodChar / input.length * 100)
-
+    const accuracy = input.length === 0 ? 100 : Math.round(goodChar / (input.length) + 1)
     setStats({ accuracy, speed })
   }
 
   const [text, setText] = useState("Press Start to begin typing.")
   const [input, setInput] = useState("")
 
+  useEffect(() => {
+    counter === 0 && setStarted(false)
+  }, [counter])
 
   useEffect(() => {
     document.addEventListener('keydown', handleKeyDown, true)
+
   }, [input])
 
+  useEffect(() => {
+    if (started) {
+      document.addEventListener('keydown', handleKeyDown, true)
+    }
+  }, [started])
+
+  useEffect(() => {
+    document.addEventListener('keydown', (e: KeyboardEvent) => {
+      if (e.shiftKey === true && e.code === "Space") {
+        reset(undefined)
+        return
+      }
+    })
+  }, [])
+
   const handleKeyDown = (e: KeyboardEvent) => {
-    calculateStats()
     if (e.key === "Backspace") {
       setInput(input.slice(0, -1))
       document.removeEventListener('keydown', handleKeyDown, true)
     }
-    if (e.key.length === 1) {
+    if (e.key.length === 1 && started === true) {
       setInput(input + e.key)
       document.removeEventListener('keydown', handleKeyDown, true)
     }
-
   }
-
-
 
   const drawText = () => {
 
@@ -87,6 +115,13 @@ export default function Home() {
           <p className="text-gray-500 dark:text-gray-400 text-center">Test your typing speed and accuracy.</p>
         </div>
         <div className="space-y-4">
+          <Slider
+            defaultValue={[]}
+            value={[Math.round(counter / 60 * 100)]}
+            max={100}
+            step={1}
+            className="w-full"
+          />
           <div className="bg-gray-100 p-4 rounded-md dark:bg-gray-700">
 
             <p className="text-gray-700 dark:text-gray-300">
@@ -104,7 +139,7 @@ export default function Home() {
               <Button
                 onClick={(e) => reset(e)}
                 className="w-full  bg-blue-500 hover:bg-blue-600 text-white font-medium px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-blue-600 dark:hover:bg-blue-700">
-                Start Test
+                {started ? counter : "Start Test"}
               </Button>
             </div>
 
