@@ -1,48 +1,35 @@
 "use client";
 
-import Stats from "@/components/stats";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import UseTimer from "@/lib/useTimer";
 import { score } from "@/types/score";
 import { useEffect, useState } from "react";
-
-export default function Typing({ newScore } : { newScore : (score: score) => void }) {
-  const frenchWords = ["bleu", "super", "autre", "bizarre", "difficile", "drôle", "étrange", "facile", "grave", "impossible", "jeune", "juste", "libre", "malade", "même", "pauvre", "possible", "propre", "rouge", "sale", "simple", "tranquille", "triste", "vide", "faux", "français", "gros", "heureux", "mauvais", "sérieux", "vieux", "vrai", "ancien", "beau", "blanc", "certain", "chaud", "cher", "clair", "content", "dernier", "désolé", "différent", "droit", "entier", "fort", "froid", "gentil", "grand", "haut", "humain", "important", "joli", "léger", "long", "meilleur", "mort", "noir", "nouveau", "pareil", "petit", "plein", "premier", "prêt", "prochain", "quoi", "seul", "tout", "vert", "vivant", "aide", "chef", "enfant", "garde", "gauche", "geste", "gosse", "livre", "merci", "mort", "ombre", "part", "poche", "professeur", "tour", "fois", "madame", "paix", "voix", "affaire", "année", "arme", "armée", "attention", "balle", "boîte", "bouche", "carte", "cause", "chambre", "chance", "chose", "classe", "confiance", "couleur", "cour", "cuisine", "dame", "dent", "droite", "école", "église", "envie", "épaule", "époque", "équipe", "erreur", "espèce", "face", "façon", "faim", "famille", "faute", "femme", "fenêtre", "fête", "fille", "fleur", "force", "forme", "guerre", "gueule", "habitude", "heure", "histoire", "idée", "image", "impression", "jambe", "joie", "journée", "langue", "lettre", "lèvre", "ligne", "lumière", "main", "maison", "maman", "manière", "marche", "merde", "mère", "minute", "musique", "nuit", "odeur", "oreille", "parole"]
-  const englishWords = ["about", "above", "add", "after", "again", "air", "all", "almost", "along", "also", "always", "America", "an", "and", "animal", "another", "answer", "any", "are", "around", "as", "ask", "at", "away", "back", "be", "because", "been", "before", "began", "begin", "being", "below", "between", "big", "book", "both", "boy", "but", "by", "call", "came", "can", "car", "carry", "change", "children", "city", "close", "come", "could", "country", "cut", "day", "did", "different", "do", "does", "don", "down", "each", "earth", "eat", "end", "enough", "even", "every", "example", "eye", "face", "family", "far", "father", "feet", "few", "find", "first", "follow", "food", "for", "form", "found", "four", "from", "get", "girl", "give", "go", "good", "got", "great", "group", "grow", "had", "hand", "hard", "has", "have", "he", "head", "hear", "help", "her", "here", "high", "him", "his", "home", "house", "how", "idea", "if", "important", "in", "Indian", "into", "is", "it", "its", "it", "just", "keep", "kind", "know", "land", "large", "last", "later", "learn", "leave", "left", "let", "letter", "life", "light", "like", "line", "list", "little", "live", "long", "look", "made", "make", "man", "many", "may", "me", "mean", "men", "might", "mile", "miss", "more", "most", "mother", "mountain", "move", "much", "must", "my", "name", "near", "need", "never", "new", "next", "night", "no", "not", "now", "number", "of", "off", "often", "oil", "old", "on", "once", "one", "only", "open", "or", "other", "our", "out", "over", "own", "page", "paper", "part", "people", "picture", "place", "plant", "play", "point", "put", "question", "quick", "quickly", "quite", "read", "really", "right", "river", "run", "said", "same", "saw", "say", "school", "sea", "second", "see", "seem", "sentence", "set", "she", "should", "show", "side", "small", "so", "some", "something", "sometimes", "song", "soon", "sound", "spell", "start", "state", "still", "stop", "story", "study", "such", "take", "talk", "tell", "than", "that", "the", "their", "them", "then", "there", "these", "they", "thing", "think", "this", "those", "thought", "three", "through", "time", "to", "together", "too", "took", "tree", "try", "turn", "two", "under", "until", "up", "us", "use", "very", "walk", "want", "was", "watch", "water", "way", "we", "well", "went", "were", "what", "when", "where", "which", "while", "white", "who", "why", "will", "with", "without", "word", "work", "world", "would", "write", "year", "you", "young"]
+import selectRandomWords from "@/lib/words";
+export default function Typing({ newScore }: { newScore: (score: score) => void }) {
   const [stats, setStats] = useState({ accuracy: 0, speed: 0 })
   const { counter, resetCounter } = UseTimer()
   const [started, setStarted] = useState(false)
   const [text, setText] = useState("Press Start to begin typing.")
   const [input, setInput] = useState("")
 
-
-  const selectRandomWords = (words: string[], count: number) => {
-    // Using reduce
-    return Array.from({ length: count }, () => words[Math.floor(Math.random() * words.length)])
-  }
-
-
   useEffect(() => {
     calculateStats()
   }, [counter])
 
-
   const reset = (e: React.MouseEvent<HTMLButtonElement> | undefined) => {
     if (e && e.detail == 0) return
-    setText(selectRandomWords(frenchWords, 120).join(" "))
+    setText(selectRandomWords(120).join(" "))
     setInput("")
     setStats({ accuracy: 0, speed: 0 })
     setStarted(true)
     resetCounter()
   }
 
-
   const calculateStats = () => {
     if (started === false) return;
 
     const speed = Math.round((text.substring(0, input.length).split(" ").length - 1) * (60 / (60 - counter)))
-
     const goodChar = input.split("").reduce((acc, char, index) => {
       if (char === text[index]) {
         acc++
@@ -53,34 +40,6 @@ export default function Typing({ newScore } : { newScore : (score: score) => voi
     const accuracy = input.length === 0 ? 100 : Math.round(goodChar / (input.length) * 100)
     setStats({ accuracy, speed })
   }
-
-  useEffect(() => {
-    if (counter === 0 && stats.speed > 0 && stats.accuracy > 0 && started === true) {
-      setStarted(false)
-      newScore({wpm : stats.speed, accuracy: stats.accuracy})
-    }
-  }, [counter])
-
-  useEffect(() => {
-    document.addEventListener('keydown', handleKeyDown, true)
-
-  }, [input])
-
-  useEffect(() => {
-    if (started) {
-      document.addEventListener('keydown', handleKeyDown, true)
-    }
-  }, [started])
-
-  useEffect(() => {
-    document.addEventListener('keydown', (e: KeyboardEvent) => {
-      e.preventDefault();
-      if (e.shiftKey === true && e.code === "Space") {
-        reset(undefined)
-        return
-      }
-    })
-  }, [])
 
   const handleKeyDown = (e: KeyboardEvent) => {
     e.preventDefault();
@@ -96,8 +55,6 @@ export default function Typing({ newScore } : { newScore : (score: score) => voi
   }
 
   const drawText = () => {
-
-    // Use reduce to minimize number of spans
     const coloredSpans = input.split("").map((char, index) => {
       return <span key={index} className={char === text[index] ? "text-green-500" : "text-red-500"}>{text[index]}</span>
     })
@@ -113,6 +70,26 @@ export default function Typing({ newScore } : { newScore : (score: score) => voi
     )
   }
 
+  useEffect(() => {
+    if (counter === 0 && stats.speed > 0 && stats.accuracy > 0 && started === true) {
+      setStarted(false)
+      newScore({ wpm: stats.speed, accuracy: stats.accuracy })
+    }
+  }, [counter])
+
+  useEffect(() => {
+    document.addEventListener('keydown', handleKeyDown, true)
+  }, [input, started])
+
+  useEffect(() => {
+    document.addEventListener('keydown', (e: KeyboardEvent) => {
+      e.preventDefault();
+      if (e.shiftKey === true && e.code === "Space") {
+        reset(undefined)
+        return
+      }
+    })
+  }, [])
 
   return (
     <div className="max-w-6xl w-full pt-4 p-8 bg-white rounded-lg shadow-lg dark:bg-gray-800">

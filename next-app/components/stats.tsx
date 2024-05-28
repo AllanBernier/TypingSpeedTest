@@ -1,10 +1,7 @@
 "use client"
 
 import { score } from '@/types/score'
-import dynamic from 'next/dynamic';
-import React, { useEffect, useState } from 'react'
-import { CartesianGrid, Cell, Legend, ResponsiveContainer, Scatter, ScatterChart, Tooltip, XAxis, YAxis, ZAxis } from 'recharts'
-import { LineChart, Line } from 'recharts';
+import { CartesianGrid, Cell, ResponsiveContainer, Scatter, ScatterChart, Tooltip, XAxis, YAxis } from 'recharts'
 
 
 
