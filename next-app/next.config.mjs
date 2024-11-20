@@ -1,9 +1,4 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-  distDir: '_next',
-  images: {
-    unoptimized: true,
-  }
-};
+const nextConfig = {};
 
 export default nextConfig;

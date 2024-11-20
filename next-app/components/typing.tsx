@@ -4,14 +4,15 @@ import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import UseTimer from "@/lib/useTimer";
 import { score } from "@/types/score";
-import { useEffect, useState } from "react";
 import selectRandomWords from "@/lib/words";
+import { useEffect, useState } from "react";
 export default function Typing({ newScore }: { newScore: (score: score) => void }) {
   const [stats, setStats] = useState({ accuracy: 0, speed: 0 })
   const { counter, resetCounter } = UseTimer()
   const [started, setStarted] = useState(false)
   const [text, setText] = useState("Press Start to begin typing.")
   const [input, setInput] = useState("")
+
 
   useEffect(() => {
     calculateStats()
@@ -81,6 +82,8 @@ export default function Typing({ newScore }: { newScore: (score: score) => void 
     document.addEventListener('keydown', handleKeyDown, true)
   }, [input, started])
 
+
+
   useEffect(() => {
     document.addEventListener('keydown', (e: KeyboardEvent) => {
       e.preventDefault();
@@ -90,6 +93,9 @@ export default function Typing({ newScore }: { newScore: (score: score) => void 
       }
     })
   }, [])
+
+
+
 
   return (
     <div className="max-w-6xl w-full pt-4 p-8 bg-white rounded-lg shadow-lg dark:bg-gray-800">
@@ -130,8 +136,15 @@ export default function Typing({ newScore }: { newScore: (score: score) => void 
             Speed:
             <span className="font-medium">{stats.speed} WPM</span>
           </div>
+
+
+
+
+
         </div>
       </div>
     </div>
   );
 }
+
+
